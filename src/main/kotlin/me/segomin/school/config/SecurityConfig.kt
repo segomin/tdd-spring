@@ -13,7 +13,8 @@ class SecurityConfig {
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.httpBasic(Customizer.withDefaults())
             .authorizeRequests{ authz ->
-                authz.anyRequest().permitAll()
+                authz.antMatchers("/about").permitAll()
+                    .anyRequest().authenticated()
             }
         return http.build()
     }
