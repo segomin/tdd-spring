@@ -7,6 +7,5 @@ import org.springframework.web.bind.annotation.RestController
 class SchoolController {
 
     @GetMapping("/about")
-    fun getAbout() {
-    }
+    fun getAbout() = "Welcome to TDD School"
 }
