@@ -16,6 +16,7 @@ class SecurityConfig {
                 authz.antMatchers("/about").permitAll()
                     .anyRequest().authenticated()
             }
+            .csrf().disable()
         return http.build()
     }
 }

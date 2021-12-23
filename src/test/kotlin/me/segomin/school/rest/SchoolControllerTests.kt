@@ -1,9 +1,8 @@
 package me.segomin.school.rest
 
 import me.segomin.school.dto.ClassName
-import me.segomin.school.dto.SchoolMember
+import me.segomin.school.dto.Student
 import me.segomin.school.dto.Teacher
-import me.segomin.school.dto.UserType
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -20,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
+
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -61,9 +61,9 @@ class SchoolControllerTests {
     @Test
     internal fun scoresWhenUserIsTeacherReturnsListOfScores() {
         val joe = Teacher("Joe", "A", ClassName.Alpha)
-        mockMvc.perform(get("/classes/Alpha/scores").with(user(SchoolMemberService.SchoolMemberDetails(joe))))
+        mockMvc.perform(get("/scores/${joe.className}").with(user(SchoolMemberService.SchoolMemberDetails(joe))))
             .andExpect(status().isOk)
-            .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize<Int>(1)))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Matchers.`is`("")))
+            .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize<Int>(2)))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Matchers.`is`("${joe.className} A 100")))
     }
 }
