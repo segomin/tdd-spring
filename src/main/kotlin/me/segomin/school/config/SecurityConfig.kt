@@ -19,7 +19,6 @@ class SecurityConfig {
                     .antMatchers("/scores/**").hasRole("TEACHER")
                     .anyRequest().authenticated()
             }
-            .csrf().disable()
         return http.build()
     }
 }

@@ -99,4 +99,14 @@ class SchoolControllerTests {
             .andExpect(status().isOk)
             .andExpect(content().string("Welcome to BDD School"))
     }
+
+    @Test
+    internal fun postAboutNoCsrfTokenThen403() {
+        val skinner = Principal("Skinner", "A")
+        mockMvc.perform(
+            post("/about")
+                .content("Welcome to BDD School")
+                .with(user(SchoolMemberService.SchoolMemberDetails(skinner)))
+        ).andExpect(status().isForbidden)
+    }
 }
