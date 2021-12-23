@@ -46,5 +46,9 @@ class SchoolControllerTests {
             .andExpect(content().string("Hello, Sego"))
     }
 
-
+    @Test
+    internal fun greetingWhenUnauthenticatedUserThenReturns401() {
+        mockMvc.perform(get("/greeting"))
+            .andExpect(status().isUnauthorized)
+    }
 }
