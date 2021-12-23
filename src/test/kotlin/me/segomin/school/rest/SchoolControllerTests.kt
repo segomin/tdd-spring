@@ -94,5 +94,9 @@ class SchoolControllerTests {
                 .with(user(SchoolMemberService.SchoolMemberDetails(skinner)))
                 .with(csrf())
         ).andExpect(status().isOk)
+
+        mockMvc.perform(get("/about"))
+            .andExpect(status().isOk)
+            .andExpect(content().string("Welcome to BDD School"))
     }
 }

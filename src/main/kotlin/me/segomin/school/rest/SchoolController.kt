@@ -1,19 +1,20 @@
 package me.segomin.school.rest
 
 import me.segomin.school.dto.ClassName
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class SchoolController {
 
+    var aboutContent = "Welcome to TDD School"
+
     @GetMapping("/about")
-    fun getAbout() = "Welcome to TDD School"
+    fun getAbout() = aboutContent
 
     @PostMapping("/about")
-    fun postAbout() = "Welcome to TDD School"
+    fun postAbout(@RequestBody content: String) {
+        aboutContent = content
+    }
 
     @GetMapping("/greeting")
     fun getGreeting() = "Hello, Sego"
