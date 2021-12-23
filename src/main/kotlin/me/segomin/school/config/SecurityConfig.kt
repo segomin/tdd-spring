@@ -14,6 +14,7 @@ class SecurityConfig {
         http.httpBasic(Customizer.withDefaults())
             .authorizeRequests{ authz ->
                 authz.antMatchers("/about").permitAll()
+                    .antMatchers("/scores/**").hasRole("TEACHER")
                     .anyRequest().authenticated()
             }
             .csrf().disable()
