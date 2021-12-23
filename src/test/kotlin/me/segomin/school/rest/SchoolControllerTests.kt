@@ -1,5 +1,10 @@
 package me.segomin.school.rest
 
+import me.segomin.school.dto.ClassName
+import me.segomin.school.dto.SchoolMember
+import me.segomin.school.dto.Teacher
+import me.segomin.school.dto.UserType
+import org.hamcrest.Matchers
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,6 +14,7 @@ import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfig
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
@@ -50,5 +56,14 @@ class SchoolControllerTests {
     internal fun greetingWhenUnauthenticatedUserThenReturns401() {
         mockMvc.perform(get("/greeting"))
             .andExpect(status().isUnauthorized)
+    }
+
+    @Test
+    internal fun scoresWhenUserIsTeacherReturnsListOfScores() {
+        val joe = Teacher("Joe", "A", ClassName.Alpha)
+        mockMvc.perform(get("/classes/Alpha/scores").with(user(SchoolMemberService.SchoolMemberDetails(joe))))
+            .andExpect(status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize<Int>(1)))
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Matchers.`is`("")))
     }
 }
