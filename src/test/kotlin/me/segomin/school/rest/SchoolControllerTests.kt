@@ -33,4 +33,13 @@ class SchoolControllerTests {
             .andExpect(status().isOk)
             .andExpect(content().string("Welcome to TDD School"))
     }
+
+    @Test
+    internal fun greetingReturnsHelloAndUsername() {
+        mockMvc.perform(get("/greeting"))
+            .andExpect(status().isOk)
+            .andExpect(content().string("Hello, Sego"))
+    }
+
+
 }
