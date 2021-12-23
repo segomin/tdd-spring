@@ -3,6 +3,7 @@ package me.segomin.school.rest
 import me.segomin.school.dto.ClassName
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -10,6 +11,9 @@ class SchoolController {
 
     @GetMapping("/about")
     fun getAbout() = "Welcome to TDD School"
+
+    @PostMapping("/about")
+    fun postAbout() = "Welcome to TDD School"
 
     @GetMapping("/greeting")
     fun getGreeting() = "Hello, Sego"
