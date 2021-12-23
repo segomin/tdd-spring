@@ -66,4 +66,14 @@ class SchoolControllerTests {
             .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize<Int>(2)))
             .andExpect(MockMvcResultMatchers.jsonPath("$[0]", Matchers.`is`("${joe.className} A 100")))
     }
+
+    @Test
+    internal fun scoresWhenUserIsNotTeacherReturns403() {
+        val sego = Student("Min", "A", ClassName.Alpha)
+        mockMvc.perform(
+            get("/scores/${sego.className}")
+                .with(user(SchoolMemberService.SchoolMemberDetails(sego)))
+        )
+            .andExpect(status().isForbidden)
+    }
 }
