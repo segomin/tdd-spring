@@ -8,4 +8,7 @@ class SchoolController {
 
     @GetMapping("/about")
     fun getAbout() = "Welcome to TDD School"
+
+    @GetMapping("/greeting")
+    fun getGreeting() = "Hello, Sego"
 }
