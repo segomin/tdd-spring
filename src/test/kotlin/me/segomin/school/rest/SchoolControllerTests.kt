@@ -76,4 +76,10 @@ class SchoolControllerTests {
         )
             .andExpect(status().isForbidden)
     }
+
+    @Test
+    internal fun scoresWhenUnauthenticatedUserReturns401() {
+        mockMvc.perform(get("/scores/Alpha"))
+            .andExpect(status().isUnauthorized)
+    }
 }
